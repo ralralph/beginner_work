@@ -7,7 +7,7 @@ module WEBrick
 end
 
 server = WEBrick::HTTPServer.new({
-  :DocumentRoot => 'http://localhost:3000/test',
+  :DocumentRoot => 'http://localhost:3000',
   :CGIInterpreter => WEBrick::HTTPServlet::CGIHandler::Ruby,
   :Port => '3000',
 })
@@ -15,7 +15,7 @@ server = WEBrick::HTTPServer.new({
   Signal.trap(signal){ server.shutdown }
 }
 
-server.mount('/test', WEBrick::HTTPServlet::ERBHandler, 'test.html.erb')
+server.mount('/', WEBrick::HTTPServlet::ERBHandler, 'test.html.erb')
 server.mount('/indicate.cgi',WEBrick::HTTPServlet::CGIHandler,'indicate.rb')
 server.mount('/goya.cgi', WEBrick::HTTPServlet::CGIHandler,'goya.rb')
 server.start
